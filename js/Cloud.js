@@ -1,7 +1,6 @@
 //Box/Poly Method w/ Objects
 
 var Cloud = function(point) {
-	//Center Point
 	this.origin = point;
 	this.outerBound = new Size(300,200);
 	this.RoM = 10;
@@ -18,6 +17,12 @@ var Cloud = function(point) {
 
 	cloud.scaling = scalingFactor;
 
+	var outerBoundBox = new Path.Rectangle({
+		point: new Point(point.x-this.outerBound.width/2,point.y-this.outerBound.height/2),
+		size: this.outerBound,
+		strokeColor: 'red'
+	});
+
 	for(var i=0;i<numsides;i++){
 	    var px = cloud.segments[i].point.x;
 	    var py = cloud.segments[i].point.y;
@@ -28,7 +33,8 @@ var Cloud = function(point) {
 	    var tmpP = new Point(x,y);
 	    cloud.segments[i].point = tmpP;
 	}
+
+	cloud.smooth();
 }
 
 new Cloud(new Point(300,300));
-//poly.smooth();
