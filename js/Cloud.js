@@ -1,28 +1,34 @@
-//Box/Poly Method
+//Box/Poly Method w/ Objects
 
-var outerBound = new Size(300,220);
-var outerBoundBox = new Path.Rectangle(new Point(view.size.width/2-outerBound.width/2,view.size.height/2-outerBound.height/2),outerBound);
+var Cloud = function(point) {
+	//Center Point
+	this.origin = point;
+	this.outerBound = new Size(300,200);
+	this.RoM = 10;
 
-var center = new Point(outerBoundBox.bounds.center.x,outerBoundBox.bounds.center.y);
-var numSides = 15;
-var RoM = 10;
+	var numsides = 15;
+	var scalingFactor = new Point(1,this.outerBound.height/this.outerBound.width);
 
-var poly = new Path.RegularPolygon(center,numSides,outerBound.width/2);
-var scalingFactor = new Point(1,outerBound.height/outerBound.width);
-poly.scaling = scalingFactor;
+	var cloud = new Path.RegularPolygon({
+		center: this.origin,
+		sides: numsides,
+		radius: this.outerBound.width/2,
+		strokeColor: 'black'
+	});
 
-for(var i=0;i<numSides;i++){
-    var px = poly.segments[i].point.x;
-    var py = poly.segments[i].point.y;
+	cloud.scaling = scalingFactor;
 
-    var x = Math.floor(Math.random()*( (px+RoM)-(px-RoM)+1 ) + (px-RoM) );
-    var y = Math.floor(Math.random()*( (py+RoM)-(py-RoM)+1 ) + (py-RoM) );
+	for(var i=0;i<numsides;i++){
+	    var px = cloud.segments[i].point.x;
+	    var py = cloud.segments[i].point.y;
 
-    var tmpP = new Point(x,y);
-    poly.segments[i].point = tmpP;
+	    var x = Math.floor(Math.random()*( (px+this.RoM)-(px-this.RoM)+1 ) + (px-this.RoM) );
+	    var y = Math.floor(Math.random()*( (py+this.RoM)-(py-this.RoM)+1 ) + (py-this.RoM) );
+
+	    var tmpP = new Point(x,y);
+	    cloud.segments[i].point = tmpP;
+	}
 }
 
-poly.strokeColor = 'black';
-outerBoundBox.strokeColor = 'red';
-
+new Cloud(new Point(300,300));
 //poly.smooth();
