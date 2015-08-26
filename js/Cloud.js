@@ -2,10 +2,10 @@
 
 var Cloud = function(point) {
 	this.origin = point;
-	this.outerBound = new Size(300,200);
-	this.RoM = 10;
+	this.outerBound = new Size(550,550);
+	this.RoM = 60;
 
-	var numsides = 15;
+	var numsides = 100;
 	var scalingFactor = new Point(1,this.outerBound.height/this.outerBound.width);
 
 	var cloud = new Path.RegularPolygon({
@@ -37,4 +37,4 @@ var Cloud = function(point) {
 	cloud.smooth();
 }
 
-new Cloud(new Point(300,300));
+new Cloud(new Point(650,350));

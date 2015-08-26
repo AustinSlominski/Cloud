@@ -26,3 +26,8 @@ poly.strokeColor = 'black';
 outerBoundBox.strokeColor = 'red';
 
 //poly.smooth();
+
+
+/*
+Stages of subdivision. Each iteration will have a lower RoM from there. More complex, organic shapes.
+*/
