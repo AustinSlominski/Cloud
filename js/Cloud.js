@@ -1,8 +1,9 @@
 //Box/Poly Method w/ Objects
 
+//Width is slightly off because the radius of the cloud refers to the distance to the points
 var Cloud = function(point) {
 	this.origin = point;
-	this.initBound = new Size(600,200); //Something broken with the width of the poly...
+	this.initBound = new Size(600,200); 
 	this.RoM = 40;
 
 	var numsides = 6;
@@ -36,9 +37,8 @@ var Cloud = function(point) {
 
 	for(var i=0;i<cloud.segments.length-1;i++){
 		var mdPnt = new Point((cloud.segments[i].point.x+cloud.segments[i+1].point.x)/2,(cloud.segments[i].point.y+cloud.segments[i+1].point.y)/2);	
-		var mdPntSeg = new Segment(mdPnt);
-		cloud.add(i,mdPntSeg);	
-	}
+		cloud.add(i,mdPnt);	//breaking here
+	}	
 
 	//cloud.smooth();
 }
