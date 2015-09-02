@@ -1,20 +1,24 @@
-//Box/Poly Recursive Method with Motion
-
+//Box/Poly Method w/ Objects
+var colorb = '#'+Math.floor(Math.random()*16777215).toString(16); 
+var background = new Shape.Rectangle({
+    rectangle: view.bounds,
+    fillColor: colorb
+});
+//Width is slightly off because the radius of the cloud refers to the distance to the points
 var Cloud = function(point) {
 	this.origin = point;
-	this.initBound = new Size(500,500); 
+	this.initBound = new Size(800,600); 
 	
 	var color = '#'+Math.floor(Math.random()*16777215).toString(16); 
 	var numsides = 6;
-	var subLevel = 5;
 	var scalingFactor = new Point(1,this.initBound.height/this.initBound.width);
 
 	var cloud = new Path.RegularPolygon({
 		center: this.origin,
 		sides: numsides,
 		radius: this.initBound.width/2,
-		strokeColor: 'black'
-		//fillColor: color
+		strokeColor: 'black',
+		fillColor: color
 	});
 
 	cloud.scaling = scalingFactor;
@@ -25,10 +29,14 @@ var Cloud = function(point) {
 		//strokeColor: 'red'
 	});
 
+	var subLevel = 10;
+
 	for(var i=0;i<subLevel;i++){
 		
-		var RoM = cloud.curves[i].length/2;
+		var RoM = cloud.curves[i].length/1.5;
+		//starts by checking the original length, before subdivision
 
+		//RANDOMIZE
 		for(var j=0;j<cloud.segments.length-1;j++){
 		    var px = cloud.segments[j].point.x;
 		    var py = cloud.segments[j].point.y;
@@ -46,7 +54,10 @@ var Cloud = function(point) {
 	}
 
 	//cloud.fullySelected = true;
-	//cloud.smooth();
+	cloud.smooth();
 }
 
 new Cloud(new Point(view.size.width/2,view.size.height/2));
+new Cloud(new Point(300,500));
+new Cloud(new Point(700,800));
+new Cloud(new Point(500,200));
