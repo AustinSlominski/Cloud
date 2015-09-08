@@ -46,6 +46,7 @@ Cloud.prototype.checkIntersections = function() {
 	for(var i=0;i<Clouds.length;i++){
 		if(this.path !== Clouds[i].path){ //prevents from checking intersections on itself
 			var intersections = this.path.getIntersections(Clouds[i].path);
+			console.log(intersections[0].path);
 			return intersections;
 		}
 	}
@@ -64,7 +65,7 @@ for(var i=0;i<2;i++){
 	for(var i=0;i<Clouds.length;i++){
 		var intersection = Clouds[i].checkIntersections();
 		if(intersection.length > 0){
-			compoundClouds()
+			compoundClouds();
 		}
 	}
 //}
