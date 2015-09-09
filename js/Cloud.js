@@ -44,7 +44,7 @@ var Cloud = function(point) {
 Cloud.prototype.checkIntersection = function() {
 	for(var i=0;i<Clouds.length;i++){
 		if(this.path !== Clouds[i].path){
-
+			this.path.intersects(Clouds[i].path);
 		}
 	}
 }
@@ -54,5 +54,7 @@ for(var i=0;i<2;i++){
 	Clouds.push(cloud);
 }
 
-
+for(var i=0;i<Clouds.length;i++){
+	Clouds[i].checkIntersection();
+}
 
