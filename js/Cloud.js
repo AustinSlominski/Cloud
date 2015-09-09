@@ -38,22 +38,15 @@ var Cloud = function(point) {
 	}
 
 	cloud.fullySelected = true;
-	//cloud.smooth();	
 	this.path = cloud;
 }
 
-Cloud.prototype.checkIntersections = function() {
+Cloud.prototype.checkIntersection = function() {
 	for(var i=0;i<Clouds.length;i++){
-		if(this.path !== Clouds[i].path){ //prevents from checking intersections on itself
-			var intersections = this.path.getIntersections(Clouds[i].path);
-			console.log(intersections[0].path);
-			return intersections;
+		if(this.path !== Clouds[i].path){
+
 		}
 	}
-}
-
-function compoundClouds(clouds,intersections) { // group of clouds and the collection of intersections
-
 }
 
 for(var i=0;i<2;i++){
@@ -61,13 +54,5 @@ for(var i=0;i<2;i++){
 	Clouds.push(cloud);
 }
 
-//function onFrame(event) {
-	for(var i=0;i<Clouds.length;i++){
-		var intersection = Clouds[i].checkIntersections();
-		if(intersection.length > 0){
-			compoundClouds();
-		}
-	}
-//}
 
 
