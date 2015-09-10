@@ -1,5 +1,6 @@
 //Box/Poly Recursive Method with Motion
 var Clouds = [];
+var CloudGrp = [];
 
 var Cloud = function(point) {
 	var originCenter = point;
@@ -44,7 +45,10 @@ var Cloud = function(point) {
 Cloud.prototype.checkIntersection = function() {
 	for(var i=0;i<Clouds.length;i++){
 		if(this.path !== Clouds[i].path){
-			this.path.intersects(Clouds[i].path);
+			if(this.path.intersects(Clouds[i].path)){
+				tmpGrp = [this.path,Cloud[i].path];
+				CloudGrp.push(tmpGrp);
+			}
 		}
 	}
 }
