@@ -1,5 +1,6 @@
 //Box/Poly Recursive Method with Motion
-var Clouds = [];
+var clouds = [];
+var grps = [];
 
 var Cloud = function(point) {
 	var originCenter = point;
@@ -42,19 +43,35 @@ var Cloud = function(point) {
 }
 
 Cloud.prototype.checkIntersection = function() {
-	for(var i=0;i<Clouds.length;i++){
-		if(this.path !== Clouds[i].path){
-			this.path.intersects(Clouds[i].path);
+	for(var i=0;i<clouds.length;i++){
+		if(this.path !== clouds[i].path){
+			if(this.path.intersects(clouds[i].path)){
+				tmpGrp = [this.path,clouds[i].path]; // need sorted groups
+				groupClouds(tmpGrp);
+			}
 		}
 	}
 }
 
-for(var i=0;i<2;i++){
-	cloud = new Cloud(new Point(view.size.width/2-200+(i*100),view.size.height/2));
-	Clouds.push(cloud);
+function groupClouds(tmpGrp){
+	if(grps.length > 0){
+		for(var i=0;i<grps.length;i++){
+			if(tmpGrp !== grps[i]){ //if tmp group doesn't match any other existing group
+				grps[i] = tmpGrp;
+			}
+		}
+	}else{
+		grps[0] = tmpGrp;
+	}
+	console.log(grps);
 }
 
-for(var i=0;i<Clouds.length;i++){
-	Clouds[i].checkIntersection();
+for(var i=0;i<2;i++){
+	cloud = new Cloud(new Point(view.size.width/2-200+(i*100),view.size.height/2));
+	clouds.push(cloud);
+}
+
+for(var i=0;i<clouds.length;i++){
+	clouds[i].checkIntersection();
 }
 
