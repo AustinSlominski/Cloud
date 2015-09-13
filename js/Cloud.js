@@ -1,6 +1,11 @@
 //Box/Poly Recursive Method with Motion
+<<<<<<< HEAD
 var clouds = [];
 var grps = [];
+=======
+var Clouds = [];
+var CloudGrp = [];
+>>>>>>> 302c81c3959be2cecd230cf26cff9b9886ead596
 
 var Cloud = function(point) {
 	var originCenter = point;
@@ -57,7 +62,7 @@ function groupClouds(tmpGrp){
 	if(grps.length > 0){
 		for(var i=0;i<grps.length;i++){
 			if(tmpGrp !== grps[i]){ //if tmp group doesn't match any other existing group
-				grps[i] = tmpGrp;
+				grps.push(tmpGrp);
 			}
 		}
 	}else{
