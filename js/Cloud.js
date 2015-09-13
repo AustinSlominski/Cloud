@@ -1,11 +1,5 @@
-//Box/Poly Recursive Method with Motion
-<<<<<<< HEAD
-var clouds = [];
+var cloudArray = [];
 var grps = [];
-=======
-var Clouds = [];
-var CloudGrp = [];
->>>>>>> 302c81c3959be2cecd230cf26cff9b9886ead596
 
 var Cloud = function(point) {
 	var originCenter = point;
@@ -48,10 +42,11 @@ var Cloud = function(point) {
 }
 
 Cloud.prototype.checkIntersection = function() {
-	for(var i=0;i<clouds.length;i++){
-		if(this.path !== clouds[i].path){
-			if(this.path.intersects(clouds[i].path)){
-				tmpGrp = [this.path,clouds[i].path]; // need sorted groups
+	for(var i=0;i<cloudArray.length;i++){
+		if(this.path !== cloudArray[i].path){
+			if(this.path.intersects(cloudArray[i].path)){
+				tmpGrp = [this.path,cloudArray[i].path];
+				tmpGrp.sort(function(a,b){return a.id - b.id});
 				groupClouds(tmpGrp);
 			}
 		}
@@ -61,8 +56,11 @@ Cloud.prototype.checkIntersection = function() {
 function groupClouds(tmpGrp){
 	if(grps.length > 0){
 		for(var i=0;i<grps.length;i++){
-			if(tmpGrp !== grps[i]){ //if tmp group doesn't match any other existing group
+			if(tmpGrp !== grps[i]){
+				console.log('doesnt match');
 				grps.push(tmpGrp);
+			}else{
+				console.log('matches');
 			}
 		}
 	}else{
@@ -73,10 +71,10 @@ function groupClouds(tmpGrp){
 
 for(var i=0;i<2;i++){
 	cloud = new Cloud(new Point(view.size.width/2-200+(i*100),view.size.height/2));
-	clouds.push(cloud);
+	cloudArray.push(cloud);
 }
 
-for(var i=0;i<clouds.length;i++){
-	clouds[i].checkIntersection();
+for(var i=0;i<cloudArray.length;i++){
+	cloudArray[i].checkIntersection();
 }
 
