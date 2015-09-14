@@ -3,7 +3,7 @@ var grps = [];
 
 var Cloud = function(point) {
 	var originCenter = point;
-	var initBound = new Size(200,200); 
+	var initBound = new Size(500,500); 
 	
 	var color = '#'+Math.floor(Math.random()*16777215).toString(16); 
 	var numsides = 6;
@@ -14,7 +14,7 @@ var Cloud = function(point) {
 		center: originCenter,
 		sides: numsides,
 		radius: initBound.width/2,
-		strokeColor: color
+		strokeColor: 'black'
 	});
 
 	cloud.scaling = scalingFactor;
@@ -37,7 +37,7 @@ var Cloud = function(point) {
 		}
 	}
 
-	//cloud.fullySelected = true;
+	cloud.fullySelected = true;
 	this.path = cloud;
 }
 
@@ -57,43 +57,24 @@ function groupClouds(tmpGrp){
 	if(grps.length > 0){
 		for(var i=0;i<grps.length;i++){
 			if(tmpGrp !== grps[i]){
+				console.log('doesnt match');
 				grps.push(tmpGrp);
+			}else{
+				console.log('matches');
 			}
 		}
 	}else{
 		grps[0] = tmpGrp;
 	}
+	console.log(grps);
 }
 
-//for(var i=0;i<5;i++){
-//	cloud = new Cloud(new Point(view.size.width/2-200+(i*100),view.size.height/2));
-//	cloudArray.push(cloud);
-//}
-
-cloud = new Cloud(new Point(150,150));
-cloudArray.push(cloud);
-
-cloud = new Cloud(new Point(250,250));
-cloudArray.push(cloud);
-
-cloud = new Cloud(new Point(500,500));
-cloudArray.push(cloud);
-
-cloud = new Cloud(new Point(700,700));
-cloudArray.push(cloud);
-
-cloud = new Cloud(new Point(800,800));
-cloudArray.push(cloud);
+for(var i=0;i<2;i++){
+	cloud = new Cloud(new Point(view.size.width/2-200+(i*100),view.size.height/2));
+	cloudArray.push(cloud);
+}
 
 for(var i=0;i<cloudArray.length;i++){
 	cloudArray[i].checkIntersection();
 }
 
-for(var i=0;i<cloudArray.length;i++){
-	var cloudID = new PointText({
-		point: cloudArray[i].path.position,
-		content: cloudArray[i].path.id,
-		fillColor: 'black'
-	});
-}
-	
