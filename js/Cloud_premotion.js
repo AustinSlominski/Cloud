@@ -1,21 +1,16 @@
 var cloudArray = [];
-var colorb = '#'+Math.floor(Math.random()*16777215).toString(16); 
-var background = new Shape.Rectangle({
-    rectangle: view.bounds,
-    fillColor: colorb
-});
+
 var Cloud = function(origin) {
-	var initBound = new Size(700,1000); 
+	var initBound = new Size(200,200); 
 	var color = '#'+Math.floor(Math.random()*16777215).toString(16); 
-	var numsides = 2;
-	var subLevel = 4;
+	var numsides = 6;
+	var subLevel = 3;
 	var scalingFactor = new Point(1,initBound.height/initBound.width);
 	var cloud = new Path.RegularPolygon({
 		center: origin,
 		sides: numsides,
 		radius: initBound.width/2,
-		strokeColor: color,
-		fillColor: color
+		strokeColor: color
 	});
 	cloud.scaling = scalingFactor;
 	for(var i=0;i<subLevel;i++){
@@ -34,26 +29,7 @@ var Cloud = function(origin) {
 		}
 	}
 	this.path = cloud;
-	this.numSeg = numsides*Math.pow(2,subLevel);
-	cloud.smooth();
 }
-
-Cloud.prototype.move = function() {
-	//this.path can be manipulated
-
-	//Point Movement
-		for(var i=0;i<this.numSeg;i++){
-			var RoM = 10;
-			var segment = this.path.segments[i];
-		    var px = segment.point.x;
-		    var py = segment.point.y;
-		    var x = Math.floor(Math.random()*( (px+RoM)-(px-RoM)+1 ) + (px-RoM) );
-		    var y = Math.floor(Math.random()*( (py+RoM)-(py-RoM)+1 ) + (py-RoM) );
-			segment.point.x = x;
-			segment.point.y = y;
-		
-		}
-}	
 
 function checkIntersection(cloud) {	//accepts a PATH or COMPOUNDPATH
 	for(var i=0;i<cloudArray.length;i++){			
@@ -82,19 +58,12 @@ for(var i=0;i<5;i++){
 }
 
 for(var i=0;i<cloudArray.length;i++){
-	//checkIntersection(cloudArray[i].path);
+	checkIntersection(cloudArray[i].path);
 
-/*
 	var cloudID = new PointText({
 		point: cloudArray[i].path.position,
 		content: cloudArray[i].path.id,
 		fillColor: 'black'
 	});
-*/
 }
-
-function onFrame(event) {
-	for(var i=0;i<cloudArray.length;i++){
-		cloudArray[i].move();
-	}
-}
+	
