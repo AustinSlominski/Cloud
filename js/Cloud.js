@@ -1,9 +1,5 @@
 var cloudArray = [];
-var colorb = '#'+Math.floor(Math.random()*16777215).toString(16); 
-var background = new Shape.Rectangle({
-    rectangle: view.bounds,
-    fillColor: colorb
-});
+
 var Cloud = function(origin) {
 	var initBound = new Size(700,1000); 
 	var color = '#'+Math.floor(Math.random()*16777215).toString(16); 
@@ -14,8 +10,7 @@ var Cloud = function(origin) {
 		center: origin,
 		sides: numsides,
 		radius: initBound.width/2,
-		strokeColor: color,
-		fillColor: color
+		strokeColor: color
 	});
 	cloud.scaling = scalingFactor;
 	for(var i=0;i<subLevel;i++){
@@ -39,11 +34,12 @@ var Cloud = function(origin) {
 }
 
 Cloud.prototype.move = function() {
-	//this.path can be manipulated
-
-	//Point Movement
+	//Major formation movement (single direction, whole shape)
+		this.path.position = this.path.position + Math.random();
+		
+	//Point Movement (outward from center in semirandom direction)
 		for(var i=0;i<this.numSeg;i++){
-			var RoM = 10;
+			var RoM = 4;
 			var segment = this.path.segments[i];
 		    var px = segment.point.x;
 		    var py = segment.point.y;
@@ -51,8 +47,7 @@ Cloud.prototype.move = function() {
 		    var y = Math.floor(Math.random()*( (py+RoM)-(py-RoM)+1 ) + (py-RoM) );
 			segment.point.x = x;
 			segment.point.y = y;
-		
-		}
+		}	
 }	
 
 function checkIntersection(cloud) {	//accepts a PATH or COMPOUNDPATH
